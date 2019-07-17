@@ -6,7 +6,7 @@
         <i :class="item.type" />{{ item.name }}<span class="arrow" />
       </dd>
     </dl>
-    <div class="detail" v-if="kind" @mouseenter="sover" @mouseleave="sout">
+    <div v-if="kind" class="detail" @mouseenter="sover" @mouseleave="sout">
       <template v-for="(item, index) in curdetail.child">
         <h4 :key="index">{{ item.title }}</h4>
         <span v-for="v in item.child" :key="v">{{ v }}</span>
@@ -56,6 +56,7 @@ export default {
   },
   computed: {
     curdetail() {
+      // 返回menu.item和kind相等的数据
       return this.menu.filter(item => item.type === this.kind)[0]
     }
   },
@@ -66,13 +67,15 @@ export default {
       }, 150)
     },
     mouseenter(e) {
+      // 当鼠标进入区域时设置kind值 e.target是事件触发区域的 DOM节点
       this.kind = e.target.querySelector('i').className
     },
     sover() {
+      // 如果在150ms时进入子菜单，则取消定时器，禁止子菜单页面的隐藏
       clearTimeout(this._timer)
     },
     sout() {
-      this.kind
+      this.kind = ''
     }
   }
 }
