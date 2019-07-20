@@ -200,6 +200,11 @@
       height: 240px;
       margin: 10px;
 
+      .el-carousel--horizontal {
+        height: 100%;
+        overflow: hidden;
+      }
+
       img {
         height: 240px;
       }

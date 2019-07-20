@@ -17,6 +17,14 @@
     url(//s0.meituan.net/bs/fe-web-meituan/c19c6e9/font/home-category-iconfont.svg?t=1503027869484#home-category-iconfont) format('svg')
 }
 
+@font-face {
+  font-family: MFShangHei-Regular;
+  src: url(//s0.meituan.net/bs/fe-web-meituan/076a786/font/MFShangHei-Regular.eot);
+  src: url(//s0.meituan.net/bs/fe-web-meituan/076a786/font/MFShangHei-Regular.eot?#iefix) format("embedded-opentype"),url(//s0.meituan.net/bs/fe-web-meituan/076a786/font/MFShangHei-Regular.woff) format("woff"),url(//s0.meituan.net/bs/fe-web-meituan/076a786/font/MFShangHei-Regular.ttf) format("truetype"),url(//s0.meituan.net/bs/fe-web-meituan/076a786/font/MFShangHei-Regular.svg#MFShangHei-Regular) format("svg");
+  font-style: normal;
+  font-weight: 400
+}
+
 .layout-blank{
   background-color: #fff;
   color: #2e2f30;

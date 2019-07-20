@@ -9,18 +9,20 @@
       </el-col>
     </el-row>
     <el-row :span="24">
-      3
+      <eartidtic />
     </el-row>
   </div>
 </template>
 
 <script>
 import Emenu from '@/components/index/menu'
-import Eleft from '@/components/index/left'
+import Eleft from '@/components/index/life'
+import Eartidtic from '@/components/index/artistic'
 export default {
   components: {
     Emenu,
-    Eleft
+    Eleft,
+    Eartidtic
   }
 }
 </script>

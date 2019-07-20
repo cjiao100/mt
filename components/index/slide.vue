@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <el-carousel height="150px">
-      <el-carousel-item v-for="item in carousels" :key="item">
+  <div class="slide">
+    <el-carousel>
+      <el-carousel-item v-for="item in carousels" :key="item.alt">
         <img :src="item.src" :alt="item.alt" />
       </el-carousel-item>
     </el-carousel>

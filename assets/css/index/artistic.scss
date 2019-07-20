@@ -3,11 +3,33 @@
   margin-left: 20px;
   margin-top: 40px;
 
+  .line1{
+    background: linear-gradient(to right, rgb(194, 176, 142) 3%, rgb(190, 164, 116) 100%);
+  }
+
+  .line2{
+    background: linear-gradient(to right, rgb(255, 113, 74) 2%, rgb(252, 66, 66) 97%);
+  }
+
+  .line3{
+    background: linear-gradient(to right, rgb(250, 60, 104) 2%, rgb(254, 70, 77) 97%) rgb(250, 60, 104);
+  }
+
+  .line4{
+    background: linear-gradient(to right, rgb(243, 182, 74) 2%, rgb(242, 197, 69) 97%) rgb(243, 182, 74);
+  }
+
+  .line5{
+    background: linear-gradient(to right, rgb(18, 210, 198) 2%, rgb(14, 190, 212) 97%) rgb(18, 210, 198);
+  }
+
+  .line6{
+    background: linear-gradient(-90deg,#0ECAC7 0,#06C1AE 100%);
+  }
+
   dl {
     height: 44px;
     line-height: 44px;
-    background-color: rgb(190, 164, 116);
-    background-image: linear-gradient(to right, rgb(194, 176, 142) 3%, rgb(190, 164, 116) 100%);
     display: flex;
     box-sizing: border-box;
     font-size: 14px;
@@ -15,12 +37,14 @@
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     cursor: pointer;
+    background-color: rgb(190, 164, 116);
 
     dt {
       font-size: 18px;
       margin-left: 13px;
       margin-right: 10px;
       padding: 0 5px;
+      font-family: MFShangHei-Regular;
     }
 
     dd {
@@ -62,6 +86,7 @@
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 40px;
 
     >li {
       width: 33.3%;
@@ -73,20 +98,29 @@
       transition: background-color .5s;
       height: 314px;
 
+      &.ceap-card {
+        width: 20%;
+        height: 270px;
+      }
+
       .el-card {
         width: 100%;
-        height: 100%;
+        // height: 100%;
         border: none;
+        background-color: transparent;
 
         img {
           max-width: 100%;
           width: 100%;
-          height: 208px;
+          // height: 208px;
           margin-bottom: 11px;
           cursor: pointer;
+          border-radius: 5px;
         }
 
         .el-card__body {
+          padding: 0;
+
           .cbody {
             list-style: none;
 
@@ -102,20 +136,29 @@
               text-overflow: ellipsis;
               cursor: pointer;
             }
-
+            
             .pos {
               font-size: 12px;
-
+              
               span {
+                display: block;
                 height: 18px;
                 line-height: 18px;
-                text-align: center;
-                border: 1px solid #d8d8d8;
-                border-radius: 2px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                // text-align: center;
+                // border: 1px solid #d8d8d8;
+                // border-radius: 2px;
                 margin-right: 10px;
                 margin-bottom: 5px;
                 padding: 0 3px;
+                color: #989898
               }
+            }
+
+            .tags-wrapper {
+              height: 20px;
             }
 
             .price {
@@ -125,6 +168,15 @@
               font-size: 14px;
               color: #BE9E4D;
               font-weight: 500;
+
+              .old-price {
+                text-decoration: line-through;
+              }
+
+              .bottom-right-info {
+                float: right;
+                margin-top: 8px;
+              }
 
               em {
                 font-size: 22px;
@@ -136,6 +188,7 @@
               }
 
               span {
+                color: #989898;
                 font-size: 12px;
                 letter-spacing: -.6px;
               }

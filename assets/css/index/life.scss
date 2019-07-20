@@ -15,6 +15,7 @@
         flex-direction: column;
         align-items: center;
         padding:30px;
+        border: 1px solid #e4e4e4;
 
         .m-life-login-name {
           margin-bottom: 10px;
@@ -40,7 +41,7 @@
     .m-life-hotel,
     .m-life-music {
       height: 165px;
-      background: url(//p0.meituan.net/codeman/843d7347cb20d945e4bc39b6403f0515182965.png);
+      background: url(//p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png);
       background-size: 270px;
       background-position: 50%;
       background-repeat: no-repeat;
@@ -63,6 +64,7 @@
         background:#fff;
         height:165px;
         text-align:center;
+        border: 1px solid #e4e4e4;
 
         img {
           width: 95px;
