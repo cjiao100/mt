@@ -2,16 +2,16 @@
   <dl class="nav">
     <el-row>
       <template v-for="(item, idx) in navList">
-        <el-col :span="4" class="nav-title" :key="idx">
+        <el-col :key="idx" :span="3" class="nav-title">
           <dt>{{ item.name }}</dt>
         </el-col>
-        <el-col :span="20" class="nav-content" :key="idx">
+        <el-col :key="idx" :span="21" class="nav-content">
           <dd
             v-for="(child, index) in item.childList"
             :key="index"
             class="nav-content-item"
           >
-            {{ child }}
+            <a href="#">{{ child }}</a>
           </dd>
         </el-col>
       </template>
@@ -106,16 +106,52 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav {
+  background-color: #fff;
+  height: 220px;
+  padding: 10px 0;
+
+  .el-row {
+    // overflow: auto;
+    height: 100%;
+  }
+
   .nav-title {
     font-size: 14px;
     color: #222;
+    text-align: center;
   }
 
   .nav-content {
     display: flex;
     flex-wrap: wrap;
+    padding-top: 12px;
+
+    dd {
+      // margin-right: 50px;
+      font-size: 12px;
+      // line-height: 16px;
+      width: 100px;
+      height: 17px;
+      margin-bottom: 13px;
+      padding: 0;
+
+      a {
+        line-height: 1em;
+        height: 1em;
+        width: 80px;
+        display: block;
+        text-overflow: ellipsis;
+        white-space: normal;
+        overflow: hidden;
+        cursor: pointer;
+        color: #666666;
+      }
+    }
+  }
+  .nav-content ~ .nav-content {
+    border-top: 1px solid #e4e4e4;
   }
 }
 </style>
