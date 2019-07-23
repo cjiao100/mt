@@ -13,7 +13,13 @@
           {{ child.title }}
         </dd>
       </dl>
-      <ul v-if="sort.id !== 'movie'" class="ibody">
+      <template v-if="sort.id === 'navigation'">
+        <navigation />
+      </template>
+      <template v-else-if="sort.id === 'movie'">
+        <movie-slide :kind="sort.kind" />
+      </template>
+      <ul v-else class="ibody">
         <li
           v-for="(item, index) in currend(sort.id, sort.kind)"
           :key="index"
@@ -26,9 +32,20 @@
               <li class="pos">
                 <span>{{ item.pos }}</span>
               </li>
-              <li v-if="item.boolean" class="tags-wrapper"></li>
+              <li v-if="item.boolean" class="tags-wrapper">
+                <template v-if="item.star">
+                  <el-rate
+                    v-model="item.star"
+                    :disabled="true"
+                    :allow-half="true"
+                    color="#ff9800"
+                    disabled-void-color="#c2c2c2"
+                  ></el-rate>
+                  <span>{{ item.comment }}个评价</span>
+                </template>
+              </li>
               <li class="price">
-                <em>{{ item.price }}</em>
+                <em :class="{ oneline: idx === 0 }">￥{{ item.price }}</em>
                 <span class="old-price">{{ item.oldPrice }}</span>
                 <span class="bottom-right-info">{{ item.info }}</span>
               </li>
@@ -36,18 +53,17 @@
           </el-card>
         </li>
       </ul>
-      <template v-else>
-        <movie-slide :kind="sort.kind" />
-      </template>
     </div>
   </div>
 </template>
 
 <script>
-import movieSlide from '@/components/index/movieSlide'
+import MovieSlide from '@/components/index/movieSlide'
+import Navigation from '@/components/index/navigation'
 export default {
   components: {
-    movieSlide
+    MovieSlide,
+    Navigation
   },
   data() {
     return {
@@ -99,8 +115,29 @@ export default {
             { type: 'ts', title: '唐山' },
             { type: 'ta', title: '泰安' }
           ]
+        },
+        {
+          id: 'like',
+          title: '猜你喜欢',
+          kind: 'let',
+          child: [{ type: 'let', title: '为你甄选最合适' }]
+        },
+        {
+          id: 'navigation',
+          title: '美团导航',
+          kind: ''
         }
       ],
+      /**
+       * img 表示图片
+       * title 主要内容
+       * price 价格
+       * oldPrice 以前的价格
+       * info 右下角的小字
+       * pos 为图片和价格之间的小字，一般为优惠信息
+       * boolean 是否显示评价星一行
+       * star 表示星数
+       */
       lists: {
         style: {
           styleAll: [
@@ -198,6 +235,20 @@ export default {
                 '空调凉爽！朴宿.芙蓉居 浪漫温馨欧式精装修纱幔一居室，洪楼山大旁，大明湖趵突泉宽厚里芙蓉街3公里',
               pos: '整套1居室·可住2人 | 洪家楼',
               price: 128
+            }
+          ]
+        },
+        like: {
+          let: [
+            {
+              img:
+                '//p0.meituan.net/msmerchant/8e9d07bac32473da09c402203cc5288c138748.jpg@214w_120h_1e_1c',
+              title: '旺顺阁鱼头泡饼（长阳半岛店）',
+              pos: '长阳镇',
+              price: 95.0,
+              star: 4,
+              comment: 156,
+              boolean: true
             }
           ]
         }

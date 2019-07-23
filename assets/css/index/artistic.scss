@@ -98,6 +98,7 @@
       transition: background-color .5s;
       height: 314px;
 
+
       &.ceap-card {
         width: 20%;
         height: 270px;
@@ -108,7 +109,7 @@
         // height: 100%;
         border: none;
         background-color: transparent;
-
+        
         img {
           max-width: 100%;
           width: 100%;
@@ -153,12 +154,26 @@
                 margin-right: 10px;
                 margin-bottom: 5px;
                 padding: 0 3px;
-                color: #989898
+                color: #989898;
               }
             }
 
             .tags-wrapper {
               height: 20px;
+              display: flex;
+
+              .el-rate {
+                margin-right: 10px;
+
+                .el-rate__icon {
+                  margin: 0;
+                }
+              }
+
+              span {
+                font-size: 12px;
+                color: #979797;
+              }
             }
 
             .price {
@@ -166,9 +181,8 @@
               overflow: hidden;
               margin-bottom: 10px;
               font-size: 14px;
-              color: #BE9E4D;
               font-weight: 500;
-
+              
               .old-price {
                 text-decoration: line-through;
               }
@@ -178,13 +192,17 @@
                 margin-top: 8px;
               }
 
+              .oneline {
+                color: #bd9d4e;
+              }
+              
               em {
                 font-size: 22px;
-                color: #BE9E4D;
                 margin-right: 6px;
                 letter-spacing: -.8px;
                 cursor: pointer;
                 font-style: normal;
+                color: #ff6600;
               }
 
               span {

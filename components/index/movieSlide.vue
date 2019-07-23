@@ -137,6 +137,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-carousel {
+  margin-bottom: 40px;
+}
 .el-carousel__item {
   display: flex;
   padding: 20px;
