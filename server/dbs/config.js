@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   dbs: 'mongodb://127.0.0.1:27017/student',
   redis: {
     get host() {
@@ -31,7 +31,7 @@ export default {
   },
   get expire() {
     return () => {
-      // 验证码有效时间为一分钟
+      // 验证码有效时间为一分钟，即设置当前时间+1分钟，当验证时直接比较即可
       return new Date().getTime() + 60 * 60 * 1000
     }
   }

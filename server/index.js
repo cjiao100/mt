@@ -1,11 +1,20 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const mongoose = require('mongoose')
+const bodyParser = require('koa-bodyparser')
+const session = require('koa-generic-session')
+const Redis = require('koa-redis')
+const json = require('koa-json')
+
+const config = require('../nuxt.config.js')
+const dbConfig = require('./dbs/config')
+const passport = require('./interface/utils/passport')
+const users = require('./interface/user')
 
 const app = new Koa()
 
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
 
 async function start() {
@@ -24,6 +33,37 @@ async function start() {
   } else {
     await nuxt.ready()
   }
+
+  app.use(users.routes()).use(users.allowedMethods())
+
+  // 配置session
+  app.keys = ['mt', 'keyskeys']
+  app.proxy = true
+  app.use(
+    session({
+      key: 'mt',
+      prefix: 'mt: uid',
+      store: new Redis()
+    })
+  )
+
+  // 设置类型，处理post的类型，允许有哪些类型
+  app.use(
+    bodyParser({
+      extendTypes: ['json', 'form', 'text']
+    })
+  )
+
+  app.use(json())
+
+  // 连接数据库
+  mongoose.connect(dbConfig.dbs, {
+    useNewUrlParser: true
+  })
+
+  // 配置passport
+  app.use(passport.initialize())
+  app.use(passport.session())
 
   app.use(ctx => {
     ctx.status = 200

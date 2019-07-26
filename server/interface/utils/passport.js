@@ -1,6 +1,6 @@
-import passport from 'koa-passport'
-import LocalStrategy from 'passport-local'
-import User from '../../dbs/models/users'
+const passport = require('koa-passport')
+const LocalStrategy = require('passport-local')
+const User = require('../../dbs/models/users')
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -31,4 +31,4 @@ passport.deserializeUser((user, done) => {
   return done(null, user)
 })
 
-export default passport
+module.exports = passport

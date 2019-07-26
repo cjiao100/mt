@@ -1,4 +1,4 @@
-import axios from 'axios'
+const axios = require('axios')
 
 const instance = axios.create({
   baseURL: `http://${process.env.HOST || 'localhost'}: 
@@ -7,4 +7,4 @@ const instance = axios.create({
   headers: {}
 })
 
-export default instance
+module.exports = instance

@@ -117,7 +117,9 @@ export default {
     }
   },
   methods: {
-    sendMsg() {},
+    sendMsg() {
+      let namePass, emailPass
+    },
     register() {}
   }
 }
