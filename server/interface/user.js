@@ -121,6 +121,8 @@ router.post('/signin', (ctx, next) => {
 
 // 验证码接口
 router.post('/verify', async (ctx, next) => {
+  // no-console
+  console.log(ctx)
   const username = ctx.request.body.username
   const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
   if (saveExpire && new Date().getTime() - saveExpire < 0) {

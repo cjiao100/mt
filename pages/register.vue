@@ -119,6 +119,42 @@ export default {
   methods: {
     sendMsg() {
       let namePass, emailPass
+      if (this.timerid) {
+        return false
+      }
+      // 判断用户输入是否通过校验
+      this.$refs.ruleForm.validateField('name', valid => {
+        namePass = valid
+      })
+
+      this.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      this.$refs.ruleForm.validateField('email', valid => {
+        emailPass = valid
+      })
+
+      if (!namePass && !emailPass) {
+        this.$axios
+          .post('/users/verify', {
+            username: encodeURIComponent(this.ruleForm.name),
+            email: this.ruleForm.email
+          })
+          .then(({ status, data }) => {
+            if (status === 200 && data && data.code === 0) {
+              let count = 60
+              this.timerid = setInterval(() => {
+                this.statusMsg = `验证码已发送，剩余${count--}秒`
+                if (count === 0) {
+                  clearInterval(this.timerid)
+                }
+              }, 1000)
+            } else {
+              this.statusMsg = data.msg
+            }
+          })
+      }
     },
     register() {}
   }
