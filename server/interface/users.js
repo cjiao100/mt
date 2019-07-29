@@ -122,9 +122,6 @@ router.post('/signin', (ctx, next) => {
 
 // 验证码接口
 router.post('/verify', async (ctx, next) => {
-  /* exlist-disable no-console */
-  consola.log(ctx.request.body.username)
-  // console.log(ctx.req)
   const username = ctx.request.body.username
   const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
   if (saveExpire && new Date().getTime() - saveExpire < 0) {
@@ -181,13 +178,14 @@ router.post('/verify', async (ctx, next) => {
         'email',
         ko.email
       )
-
-      ctx.body = {
-        code: 0,
-        msg: '验证码已发送'
-      }
     }
   })
+  consola.log(ctx)
+
+  ctx.body = {
+    code: 0,
+    msg: '验证码已发送'
+  }
 })
 
 // 退出
