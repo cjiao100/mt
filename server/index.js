@@ -10,7 +10,7 @@ const json = require('koa-json')
 const config = require('../nuxt.config.js')
 const dbConfig = require('./dbs/config')
 const passport = require('./interface/utils/passport')
-const users = require('./interface/user')
+const users = require('./interface/users')
 
 const app = new Koa()
 
@@ -33,8 +33,6 @@ async function start() {
   } else {
     await nuxt.ready()
   }
-
-  app.use(users.routes()).use(users.allowedMethods())
 
   // 配置session
   app.keys = ['mt', 'keyskeys']
@@ -64,6 +62,8 @@ async function start() {
   // 配置passport
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use(users.routes()).use(users.allowedMethods())
 
   app.use(ctx => {
     ctx.status = 200

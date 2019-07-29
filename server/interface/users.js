@@ -1,3 +1,4 @@
+const consola = require('consola')
 const Router = require('koa-router')
 const Redis = require('koa-redis')
 const nodeMailer = require('nodeMailer')
@@ -121,8 +122,9 @@ router.post('/signin', (ctx, next) => {
 
 // 验证码接口
 router.post('/verify', async (ctx, next) => {
-  // no-console
-  console.log(ctx)
+  /* exlist-disable no-console */
+  consola.log(ctx.request.body.username)
+  // console.log(ctx.req)
   const username = ctx.request.body.username
   const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
   if (saveExpire && new Date().getTime() - saveExpire < 0) {
@@ -167,7 +169,7 @@ router.post('/verify', async (ctx, next) => {
   // 发送邮件
   await transporter.sendMail(mailOption, (error, info) => {
     if (error) {
-      return window.console.log('error')
+      return consola.log(error)
     } else {
       // 发撒成功后、将内容存储redis中
       Store.hmset(

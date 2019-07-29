@@ -23,6 +23,9 @@ export default {
     Emenu,
     Eleft,
     Eartidtic
+  },
+  mounted() {
+    window.console.log(this)
   }
 }
 </script>
