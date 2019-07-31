@@ -18,6 +18,8 @@ const Store = new Redis().client
 router.post('/signup', async ctx => {
   const { username, password, email, code } = ctx.request.body
 
+  consola.log(username, password, email, code)
+
   if (code) {
     // 从redis中获取存储的验证码和有效时间
     const saveCode = await Store.hget(`nodeemail:${username}`, 'code')

@@ -57,10 +57,21 @@
 </template>
 
 <script>
+// 用于加密的包
+import CryptoJS from 'crypto-js'
 // import qs from 'qs'
 export default {
   layout: 'blank',
   data() {
+    const validator = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请确定密码'))
+      } else if (value !== this.ruleForm.pwd) {
+        callback(new Error('两次输入密码不一样'))
+      } else {
+        callback()
+      }
+    }
     return {
       statusMsg: '',
       error: '',
@@ -102,15 +113,7 @@ export default {
             trigger: 'blur'
           },
           {
-            validator(rule, value, callback) {
-              if (value === '') {
-                callback(new Error('请确定密码'))
-              } else if (value !== this.ruleForm.pwd) {
-                callback(new Error('两次输入密码不一样'))
-              } else {
-                callback()
-              }
-            },
+            validator,
             trigger: 'blur'
           }
         ]
@@ -149,6 +152,7 @@ export default {
                 this.statusMsg = `验证码已发送，剩余${count--}秒`
                 if (count === 0) {
                   clearInterval(this.timerid)
+                  this.statusMsg = ''
                 }
               }, 1000)
             } else {
@@ -157,7 +161,36 @@ export default {
           })
       }
     },
-    register() {}
+    register() {
+      // 检查是否通过检验，通过时 valid 为 true
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          window.console.log(this.ruleForm)
+          this.$axios
+            .post('/users/signup', {
+              username: encodeURIComponent(this.ruleForm.name),
+              password: CryptoJS.MD5(this.ruleForm.pwd).toString(),
+              email: this.ruleForm.email,
+              code: this.ruleForm.code
+            })
+            .then(({ status, data }) => {
+              if (status === 200) {
+                if (data && data.code === 0) {
+                  location.href = '/login'
+                } else {
+                  this.error = data.msg
+                }
+              } else {
+                this.error = `服务器出错，错误码：${status}`
+              }
+              // 一段时间后自动清空错误信息，以免造成误解
+              setTimeout(() => {
+                this.error = ''
+              }, 1500)
+            })
+        }
+      })
+    }
   }
 }
 </script>
