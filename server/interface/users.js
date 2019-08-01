@@ -18,12 +18,10 @@ const Store = new Redis().client
 router.post('/signup', async ctx => {
   const { username, password, email, code } = ctx.request.body
 
-  consola.log(username, password, email, code)
-
   if (code) {
     // 从redis中获取存储的验证码和有效时间
-    const saveCode = await Store.hget(`nodeemail:${username}`, 'code')
-    const saveExpire = await Store.hget(`nodeemail:${username}`, 'expire')
+    const saveCode = await Store.hget(`nodemail:${username}`, 'code')
+    const saveExpire =  await Store.hget(`nodemail:${username}`, 'expire')
 
     // 判断验证码是否正确
     if (saveCode === code) {
@@ -40,12 +38,14 @@ router.post('/signup', async ctx => {
         code: -1,
         msg: '请填写正确的验证码'
       }
+      return false
     }
   } else {
     ctx.body = {
       code: -1,
       msg: '请填写验证码'
     }
+    return false
   }
 
   const user = await User.find({
@@ -70,24 +70,28 @@ router.post('/signup', async ctx => {
 
   if (nuser) {
     // 手动调用接口
-    const res = await axios.post('/users/signin', {
-      username,
-      password
-    })
+    // const res = await axios.post('/signin', {
+    //   username,
+    //   password
+    // }).catch((err) => {
+    //   consola.log(err)
+    // })
+
+    // consola.log(res)
 
     // 判断返回值
-    if (res.data && res.data.code === 0) {
-      ctx.body = {
-        code: 0,
-        msg: '注册成功',
-        user: res.data.user
-      }
-    } else {
-      ctx.body = {
-        code: -1,
-        msg: 'error'
-      }
+    // if (res.data && res.data.code === 0) {
+    ctx.body = {
+      code: 0,
+      msg: '注册成功',
+      user: nuser
     }
+    // } else {
+    //   ctx.body = {
+    //     code: -1,
+    //     msg: 'error'
+    //   }
+    // }
   } else {
     ctx.body = {
       code: -1,
@@ -172,17 +176,16 @@ router.post('/verify', async (ctx, next) => {
     } else {
       // 发撒成功后、将内容存储redis中
       Store.hmset(
-        `nodemail: ${ko.user}`,
+        `nodemail:${ko.user}`,
         'code',
         ko.code,
         'expire',
         ko.expire,
         'email',
-        ko.email
+        ko.email,
       )
     }
   })
-  consola.log(ctx)
 
   ctx.body = {
     code: 0,

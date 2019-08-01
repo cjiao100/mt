@@ -28,11 +28,28 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
+
 export default {
   layout: 'blank',
   data() {
     return {
-      error: ''
+      error: '',
+      username: '',
+      password: '',
+      checked: ''
+    }
+  },
+  methods: {
+    login() {
+      this.$axios
+        .post('/users/signin', {
+          username: encodeURIComponent(this.username),
+          password: CryptoJS.MD5(this.password).toString()
+        })
+        .then(({ status, data }) => {
+          window.console.log(status, data)
+        })
     }
   }
 }

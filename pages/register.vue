@@ -178,9 +178,11 @@ export default {
                 if (data && data.code === 0) {
                   location.href = '/login'
                 } else {
+                  window.console.log(data.msg)
                   this.error = data.msg
                 }
               } else {
+                window.console.log(data.msg)
                 this.error = `服务器出错，错误码：${status}`
               }
               // 一段时间后自动清空错误信息，以免造成误解
