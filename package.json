@@ -30,7 +30,7 @@
     "nodemailer": "^6.3.0",
     "nuxt": "^2.0.0",
     "passport-local": "^1.0.0",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "sass-loader": "^7.1.0"
   },
   "devDependencies": {
